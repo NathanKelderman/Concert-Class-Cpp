@@ -1,9 +1,19 @@
+/************************************************************
+ *
+ * Basic class structure to store the information about a
+ * concert. It stores the date, the desire of how much you
+ * want to go, a list of friends that are going, and the name
+ * of the concert.
+ *
+ ***********************************************************/
+
 #include "concert.h"
 #include <string>
 #include <vector>
 #include <ctime>
 #include <iostream>
 
+// empty constructor
 Concert::Concert(){
 	concertName = "None";
 	friends.empty();
@@ -55,6 +65,7 @@ void Concert::setDate(std::tm d) {
 	concertDate = d;
 }
 
+// overwrite the < operator
 bool Concert::operator<(const Concert& c) const{
 	
 	if ( concertDate.tm_year < c.concertDate.tm_year)
@@ -74,7 +85,11 @@ bool Concert::operator<(const Concert& c) const{
 	return false;
 }
 
+//overwrite the << operator
 std::ostream& operator<<(std::ostream& os, const Concert& c) {
-	os << "Concert name: " << c.concertName << "\nConcert date: " << c.concertDate.tm_mon << "/" << c.concertDate.tm_mday << "/" << (c.concertDate.tm_year+1900);
+	if ( c.concertName.length() <= 7 )
+		os << c.concertName << "\t\t" << c.concertDate.tm_mon << "/" << c.concertDate.tm_mday << "/" << (c.concertDate.tm_year+1900) << "\t" << c.desire;
+	else
+		os << c.concertName << "\t" << c.concertDate.tm_mon << "/" << c.concertDate.tm_mday << "/" << (c.concertDate.tm_year+1900) << "\t" << c.desire;
 	return os;
 }
